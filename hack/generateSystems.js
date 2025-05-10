@@ -47,15 +47,12 @@ for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwi
     // Prefetch the URL into the Nix store (so that it'll be easier for us)
     console.log(`generating hashes for build ${build}...`);
 
-    const nixSriHash = execSync(`nix-prefetch-url "${location}"`).toString('utf-8').trim();
-    console.log(`nix sri hash for build ${build}: ${nixSriHash}`);
-
-    const sha256 = execSync(`nix hash convert --hash-algo sha256 "${nixSriHash}"`).toString('utf-8').trim();
-    console.log(`converted sri hash to sha256: ${sha256}`);
+    const { hash, storePath } = JSON.parse(execSync(`nix flake prefetch --extra-experimental-features 'nix-command flakes' --json "${location}"`).toString('utf-8'));
+    console.log(`build ${build} hash: ${hash} (${storePath})`);
 
     hashes.push({
+        hash,
         uri: location,
-        hash: sha256,
         system: getNixSystemForBuild(build)
     });
 }
