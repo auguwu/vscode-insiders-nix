@@ -10,6 +10,7 @@ on:
             - 'src/**/*.nix'
             - 'flake.nix'
             - 'systems.nix'
+            - 'crossbuild.nix'
 jobs:
     update:
         name: "Update / `systems.nix`"
