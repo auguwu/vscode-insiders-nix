@@ -10,7 +10,7 @@
   rev = lockfile.nodes.nixpkgs.locked;
   nixpkgs = builtins.fetchTarball {
     url = "https://github.com/${rev.owner}/${rev.repo}/archive/${rev.rev}.tar.gz";
-    narHash = rev.sha256;
+    sha256 = rev.narHash;
   };
 
   pkgs = import nixpkgs {
