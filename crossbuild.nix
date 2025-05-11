@@ -15,6 +15,7 @@
 
   pkgs = import nixpkgs {
     crossSystem.config = system;
+    config.allowUnfree = true;
   };
 
   vscode-insiders = import ./overlay.nix {} pkgs;
