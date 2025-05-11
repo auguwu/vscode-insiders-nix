@@ -4,6 +4,7 @@
   stdenv,
   lib,
   libglvnd,
+  makeDesktopItem,
 }: let
   systems = import ../systems.nix {inherit fetchzip;};
   system = stdenv.hostPlatform.system;
@@ -45,6 +46,54 @@ in
     version = "1.101.0";
     pname = "vscode-insiders";
     src = systems.${system} or (throw "unsupported system: ${system}");
+
+    # modified from the `vscode` derivation to make desktop items exist.
+    desktopItems = [
+      (makeDesktopItem {
+        name = "code-insiders";
+        desktopName = longName;
+        comment = "Code Editing. Redefined.";
+        genericName = "Text Editor";
+        exec = "code-insiders %F";
+        icon = "vscode-insiders";
+        startupNotify = true;
+        startupWMClass = "Code - Insiders";
+        categories = [
+          "Utility"
+          "TextEditor"
+          "Development"
+          "IDE"
+        ];
+
+        keywords = ["vscode"];
+        actions.new-empty-window = {
+          name = "New Empty Window";
+          exec = "code-insiders --new-window %F";
+          icon = "vscode-insiders";
+        };
+      })
+
+      (makeDesktopItem {
+        name = "code-insiders-url-handler";
+        desktopName = longName + " - URL Handler";
+        comment = "Code Editing. Redefined.";
+        genericName = "Text Editor";
+        exec = "code-insiders --open-url %U";
+        icon = "vscode-insiders";
+        startupNotify = true;
+        startupWMClass = "Code - Insiders";
+        categories = [
+          "Utility"
+          "TextEditor"
+          "Development"
+          "IDE"
+        ];
+
+        mimeTypes = ["x-scheme-handler/vscode-insiders"];
+        keywords = ["vscode"];
+        noDisplay = true;
+      })
+    ];
 
     # a modified version of nixpkgs' version of the `vscode` derivation
     # https://github.com/NixOS/nixpkgs/blob/00c1e4a18675a620cc582dc81c744766e3badb6e/pkgs/applications/editors/vscode/generic.nix#L236-L270

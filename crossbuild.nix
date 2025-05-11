@@ -6,7 +6,14 @@
 #    # Build the `x86_64-linux` version of the derivation
 #    $ nix build --file crossbuild.nix --argstr system x86_64-unknown-linux-gnu
 {system ? ""}: let
-  pkgs = import <nixpkgs> {
+  lockfile = builtins.fromJSON (builtins.readFile ./flake.nix);
+  rev = lockfile.nodes.nixpkgs.locked;
+  nixpkgs = builtins.fetchTarball {
+    url = "https://github.com/${rev.owner}/${rev.repo}/archive/${rev.rev}";
+    narHash = rev.sha256;
+  };
+
+  pkgs = import nixpkgs {
     crossSystem.config = system;
   };
 
