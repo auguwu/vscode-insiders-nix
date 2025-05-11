@@ -37,6 +37,7 @@ jobs:
         name: "Build [${{matrix.system}}]"
         runs-on: ${{matrix.runner}}
         if: ${{github.repository == 'auguwu/vscode-insiders-nix' && github.event_name != 'pull_request' }}
+        needs: update
         strategy:
             fail-fast: false
             matrix:
