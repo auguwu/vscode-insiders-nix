@@ -46,19 +46,22 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                runner: [macos-latest, ubuntu-latest]
                 nix: [x86_64-darwin, aarch64-darwin, x86_64-linux, aarch64-linux]
                 include:
                     - nix: x86_64-darwin
+                      runner: macos-13
                       system: x86_64-apple-darwin
 
                     - nix: aarch64-darwin
-                      system: x86_64-apple-darwin
+                      runner: macos-latest
+                      system: aarch64-apple-darwin
 
                     - nix: x86_64-linux
+                      runner: ubuntu-24.04
                       system: x86_64-unknown-linux-gnu
 
                     - nix: aarch64-linux
+                      runner: ubuntu-24.04
                       system: aarch64-unknown-linux-gnu
         steps:
             - uses: actions/checkout@v4
