@@ -11,6 +11,9 @@ on:
             - 'flake.nix'
             - 'systems.nix'
             - 'crossbuild.nix'
+permissions:
+    # Allow the pipeline to commit any changes to the repository
+    contents: write
 jobs:
     update:
         name: "Update / `systems.nix`"
@@ -35,7 +38,7 @@ jobs:
                 message: '[skip ci] Update Insiders build :sparkles:'
                 push: true
     build:
-        name: "Build [${{matrix.system}}]"
+        name: "Build [${{matrix.nix}}: ${{matrix.system}}]"
         runs-on: ${{matrix.runner}}
         if: ${{github.repository == 'auguwu/vscode-insiders-nix' && github.event_name != 'pull_request' }}
         needs: update
@@ -45,12 +48,19 @@ jobs:
                 runner: [macos-latest, ubuntu-latest]
                 include:
                     - runner: macos-latest
+                      nix: x86_64-darwin
                       system: x86_64-apple-darwin
+
                     - runner: macos-latest
+                      nix: aarch64-darwin
                       system: aarch64-apple-darwin
+
                     - runner: ubuntu-latest
+                      nix: x86_64-linux
                       system: x86_64-unknown-linux-gnu
+
                     - runner: ubuntu-latest
+                      nix: aarch64-darwin
                       system: aarch64-unknown-linux-gnu
         steps:
             - uses: actions/checkout@v4

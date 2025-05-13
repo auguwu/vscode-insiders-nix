@@ -6,7 +6,7 @@
 //
 // Rather not do this whole thing in bash, sorry.
 
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { exit } from 'node:process';
@@ -31,6 +31,9 @@ function getNixSystemForBuild(build) {
     }
 }
 
+const filepath = join(process.cwd(), 'systems.nix');
+const fileContents = await readFile(filepath).then(file => file.toString('utf-8'));
+
 for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwin-arm64"]) {
     console.log(`getting hashes for build: ${build}`);
 
@@ -40,6 +43,11 @@ for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwi
     if (location === null) {
         console.log(`invalid uri: ${url}`);
         exit(1);
+    }
+
+    if (fileContents.includes(`url = "${location}";`)) {
+        console.warn(`warn: build ${build} already has generated hashes, do not attempt again`);
+        continue;
     }
 
     console.log(`url for build ${build}: ${location}`);
@@ -74,7 +82,6 @@ for (const { hash, uri, system } of hashes) {
 systems.push('}');
 
 const file = systems.join('\n');
-const filepath = join(process.cwd(), 'systems.nix');
 
 console.log('generated `systems.nix`:\n', file);
 await writeFile(filepath, file);
