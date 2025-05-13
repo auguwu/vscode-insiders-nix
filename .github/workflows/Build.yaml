@@ -11,6 +11,7 @@ on:
             - 'flake.nix'
             - 'systems.nix'
             - 'crossbuild.nix'
+            - 'hack/'
 permissions:
     # Allow the pipeline to commit any changes to the repository
     contents: write
