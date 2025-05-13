@@ -11,7 +11,7 @@ import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { exit } from 'node:process';
 
-/** @type {Array<{hash:string;uri:string;system:string;}>} */
+/** @type {Array<{hash:string; uri:string; system:string;}>} */
 const hashes = [];
 
 /**
@@ -63,6 +63,11 @@ for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwi
         uri: location,
         system: getNixSystemForBuild(build)
     });
+}
+
+if (Object.keys(hashes).length === 0) {
+    console.warn('warn: all hashes are up to date!');
+    exit(1);
 }
 
 const systems = [
