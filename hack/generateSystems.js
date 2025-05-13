@@ -67,7 +67,7 @@ for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwi
 
 if (Object.keys(hashes).length === 0) {
     console.warn('warn: all hashes are up to date!');
-    exit(1);
+    exit(0);
 }
 
 const systems = [
