@@ -15,10 +15,10 @@
     formatter = eachSystem (system: (nixpkgsFor system).alejandra);
     packages = eachSystem (system: let
       pkgs = nixpkgsFor system;
-      vscode = (import ./overlay.nix {} pkgs).vscode;
+      vscode-insiders = (import ./overlay.nix {} pkgs).vscode-insiders;
     in {
-      inherit vscode;
-      default = vscode;
+      inherit vscode-insiders;
+      default = vscode-insiders;
     });
 
     overlays.default = import ./overlay.nix;
