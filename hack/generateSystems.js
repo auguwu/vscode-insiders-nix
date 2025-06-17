@@ -31,6 +31,18 @@ function getNixSystemForBuild(build) {
     }
 }
 
+async function updateDerivationVersion() {
+    console.log(`updating \`version\` in src/vscode-insiders.nix ...`);
+    const vscodePackageJSON = await fetch(`https://raw.githubusercontent.com/microsoft/vscode/refs/heads/main/package.json`)
+        .then(res => res.json());
+
+    const insidersNix = await readFile(join(process.cwd(), 'src/vscode-insiders.nix')).then(r => r.toString('utf-8'));
+    await writeFile(join(process.cwd(), 'src/vscode-insiders.nix'), insidersNix.replace(
+        /(?<before>version = ")(?<version>[^"]+)(?<after>";)/,
+        `$<before>${vscodePackageJSON.version}$<after>`
+    ));
+}
+
 const filepath = join(process.cwd(), 'systems.nix');
 const fileContents = await readFile(filepath).then(file => file.toString('utf-8'));
 
@@ -67,6 +79,8 @@ for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwi
 
 if (Object.keys(hashes).length === 0) {
     console.warn('warn: all hashes are up to date!');
+    await updateDerivationVersion();
+
     exit(0);
 }
 
@@ -93,3 +107,5 @@ await writeFile(filepath, file);
 
 console.log('formatting file with `nix fmt`');
 execSync(`nix fmt "${filepath}"`);
+
+await updateDerivationVersion();
