@@ -76,4 +76,7 @@ jobs:
                 name: noel
                 authToken: ${{secrets.CACHIX_AUTH_TOKEN}}
 
+            - run: |-
+                echo "$(uname -a)"
+
             - run: nix build --file ./crossbuild.nix --argstr system "${{matrix.system}}"

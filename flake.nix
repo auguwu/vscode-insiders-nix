@@ -10,7 +10,14 @@
       "aarch64-darwin"
     ];
 
-    nixpkgsFor = system: import nixpkgs {inherit system;};
+    nixpkgsFor = system:
+      import nixpkgs {
+        inherit system;
+
+        # Allow building `vscode-insiders` as the derivation uses
+        # Microsoft's official packaging.
+        config.allowUnfree = true;
+      };
   in {
     formatter = eachSystem (system: (nixpkgsFor system).alejandra);
     packages = eachSystem (system: let
