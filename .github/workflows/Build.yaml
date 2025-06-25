@@ -76,7 +76,10 @@ jobs:
                 name: noel
                 authToken: ${{secrets.CACHIX_AUTH_TOKEN}}
 
-            - run: |-
-                echo "$(uname -a)"
+            # Use the native version of `nix build` rather than using the crossbuild script
+            # as it messes stuff up. me no likey.
+            - run: nix-shell -p nix-output-monitor --run "nom build .#vscode-insiders"
+              if: matrix.system == 'aarch64-apple-darwin'
 
             - run: nix build --file ./crossbuild.nix --argstr system "${{matrix.system}}"
+              if: matrix.system != 'aarch64-apple-darwin'
