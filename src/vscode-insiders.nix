@@ -43,7 +43,7 @@
 in
   vscode.overrideAttrs (old: {
     # version comes from `package.json` of the `microsoft/vscode` repository
-    version = "1.105.0";
+    version = "1.106.0";
     pname = "vscode-insiders";
     src = systems.${system} or (throw "unsupported system: ${system}");
 
