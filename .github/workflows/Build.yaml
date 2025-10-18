@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         if: ${{github.repository == 'auguwu/vscode-insiders-nix'}}
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - uses: actions/setup-node@v4
               with:
                 node-version: 22.x
@@ -64,7 +64,7 @@ jobs:
                       runner: ubuntu-24.04
                       system: aarch64-unknown-linux-gnu
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - uses: cachix/install-nix-action@v31
               with:
                 extra_nix_config: |
