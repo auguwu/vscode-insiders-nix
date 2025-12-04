@@ -4,6 +4,10 @@
   stdenv,
   lib,
   libglvnd,
+  libsoup_3,
+  curl,
+  openssl,
+  webkitgtk_4_1,
   makeDesktopItem,
 }: let
   systems = import ../systems.nix {inherit fetchzip;};
@@ -46,6 +50,17 @@ in
     version = "1.107.0";
     pname = "vscode-insiders";
     src = systems.${system} or (throw "unsupported system: ${system}");
+
+    nativeBuildInputs =
+      old.nativeBuildInputs
+      ++ [
+        # These are required by `libmsalruntime.so` because god forbid Microsoft
+        # does this shit correctly
+        webkitgtk_4_1
+        libsoup_3
+        openssl
+        curl
+      ];
 
     # modified from the `vscode` derivation to make desktop items exist.
     desktopItems = [
