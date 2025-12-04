@@ -53,9 +53,10 @@ in
 
     nativeBuildInputs =
       old.nativeBuildInputs
-      ++ [
+      ++ lib.optionals stdenv.isLinux [
         # These are required by `libmsalruntime.so` because god forbid Microsoft
-        # does this shit correctly
+        # does this shit correctly, which only is avaliable on Linux for some
+        # god fucking reason
         webkitgtk_4_1
         libsoup_3
         openssl
