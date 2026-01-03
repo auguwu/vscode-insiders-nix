@@ -49,7 +49,7 @@ const fileContents = await readFile(filepath).then(file => file.toString('utf-8'
 for (const build of ["linux-x64", "linux-arm64", "linux-armhf", "darwin", "darwin-arm64"]) {
     console.log(`getting hashes for build: ${build}`);
 
-    const url = `https://update.code.visualstudio.com/latest/${build}/insider`;
+    const url = `https://code.visualstudio.com/sha/download?build=insider&os=${build}`;
     const location = await fetch(url).then(res => res.url);
 
     if (location === null) {

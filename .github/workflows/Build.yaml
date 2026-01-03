@@ -49,7 +49,7 @@ jobs:
                 nix: [x86_64-darwin, aarch64-darwin, x86_64-linux, aarch64-linux]
                 include:
                     - nix: x86_64-darwin
-                      runner: macos-13
+                      runner: macos-15-intel
                       system: x86_64-apple-darwin
 
                     - nix: aarch64-darwin
