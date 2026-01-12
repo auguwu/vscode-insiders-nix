@@ -1,10 +1,10 @@
 let
-  lockfile = builtins.fromJSON (builtins.readFile ./flake.nix);
+  lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
   rev = lockfile.nodes.nixpkgs.locked;
 
   nixpkgs = builtins.fetchTarball {
     url = "https://github.com/${rev.owner}/${rev.repo}/archive/${rev.rev}";
-    narHash = rev.sha256;
+    sha256 = rev.narHash;
   };
 
   pkgs = import nixpkgs {
