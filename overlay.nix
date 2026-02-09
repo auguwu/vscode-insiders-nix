@@ -1,3 +1,3 @@
 final: prev: {
-  vscode-insiders = prev.callPackage ./src/vscode-insiders.nix {};
+  vscode-insiders = prev.callPackage ./src/vscode-insiders {};
 }
