@@ -15,6 +15,7 @@ vscode.overrideAttrs (old: {
       undmg
     ];
 
+  sourceRoot = "${longName}.app";
   installPhase = ''
     runHook preInstall
 
