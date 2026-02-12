@@ -77,7 +77,7 @@ jobs:
                 authToken: ${{secrets.CACHIX_AUTH_TOKEN}}
 
             - run: nix build --file ./crossbuild.nix --argstr system "${{matrix.system}}"
-              if: ${{matrix.system != 'aarch64-apple-darwin'}}
+              if: ${{!endsWith(matrix.system, '-darwin')}}
 
             - run: nix build .#vscode-insiders
-              if: ${{matrix.system == 'aarch64-apple-darwin'}}
+              if: ${{endsWith(matrix.system, '-darwin')}}
