@@ -14,7 +14,8 @@
   };
 
   pkgs = import nixpkgs {
-    crossSystem.config = system;
+    crossSystem = system;
+    localSystem = builtins.currentSystem;
     config.allowUnfree = true;
   };
 

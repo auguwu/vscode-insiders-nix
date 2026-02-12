@@ -9,7 +9,12 @@
 vscode.overrideAttrs (old: {
   inherit pname version src;
 
-  nativeBuildInputs = old.nativeBuildInputs ++ [undmg];
+  nativeBuildInputs =
+    old.nativeBuildInputs
+    ++ [
+      undmg
+    ];
+
   installPhase = ''
     mkdir -p "$out/Applications/${longName}.app" "$out/bin"
     cp -r ./* "$out/Applications/${longName}.app"
