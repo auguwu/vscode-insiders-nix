@@ -5,7 +5,7 @@
   callPackage,
 }: let
   # version comes from `package.json` of the `microsoft/vscode` repository
-  version = "1.114.0";
+  version = "1.115.0";
   longName = "Visual Studio Code - Insiders";
   systems = import ../../systems.nix {inherit fetchzip fetchurl;};
   pname = "vscode-insiders";
