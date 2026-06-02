@@ -31,7 +31,7 @@ jobs:
                     experimental-features = nix-command flakes
 
             - run: ./hack/generateSystems.js
-            - uses: EndBug/add-and-commit@v9
+            - uses: EndBug/add-and-commit@v10
               with:
                 author_name: "Noel Towa"
                 default_author: user_info
