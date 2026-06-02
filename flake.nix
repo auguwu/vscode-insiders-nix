@@ -28,6 +28,17 @@
       default = vscode-insiders;
     });
 
+    devShells = eachSystem (system: let
+      pkgs = nixpkgsFor system;
+    in {
+      default = pkgs.mkShell {
+        name = "vscode-insiders-nix-dev";
+        packages = with pkgs; [
+          nodejs_latest
+        ];
+      };
+    });
+
     overlays.default = import ./overlay.nix;
   };
 }
