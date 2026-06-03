@@ -36,7 +36,10 @@ vscode.overrideAttrs (old: {
   # from: https://github.com/NixOS/nixpkgs/blob/08a2d5fff737305a13c39a47a49cf8590567220d/pkgs/applications/editors/vscode/generic.nix#L382-L454
   postPatch = (
     let
-      nodeModulesPath = "resources/app/node_modules";
+      nodeModulesPath =
+        if lib.versionAtLeast version "1.94.0"
+        then "Contents/Resources/app/node_modules"
+        else "Contents/Resources/app/node_modules.asar.unpacked";
 
       # see https://www.npmjs.com/package/@vscode/ripgrep-universal?activeTab=code
       ripgrepSystem =
