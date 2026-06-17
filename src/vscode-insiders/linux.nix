@@ -14,6 +14,10 @@
   stdenv,
   lib,
   ripgrep,
+  libxtst,
+  pipewire,
+  libjpeg8,
+  libei,
 }:
 vscode.overrideAttrs (old: {
   inherit pname version src;
@@ -34,6 +38,7 @@ vscode.overrideAttrs (old: {
         "Development"
         "IDE"
       ];
+
       keywords = ["vscode"];
       actions.new-empty-window = {
         name = "New Empty Window";
@@ -57,6 +62,7 @@ vscode.overrideAttrs (old: {
         "Development"
         "IDE"
       ];
+
       mimeTypes = ["x-scheme-handler/vscode-insiders"];
       keywords = ["vscode"];
       noDisplay = true;
@@ -66,6 +72,12 @@ vscode.overrideAttrs (old: {
   nativeBuildInputs =
     old.nativeBuildInputs
     ++ [
+      # i fucking hate you microsoft
+      libxtst
+      pipewire
+      libjpeg8
+      libei
+
       # These are required by `libmsalruntime.so` because god forbid Microsoft
       # does this shit correctly, which only is avaliable on Linux for some
       # god fucking reason
