@@ -69,6 +69,18 @@ vscode.overrideAttrs (old: {
     })
   ];
 
+  # i want microsoft to jump off a cliff for making me do this
+  autoPatchelfIgnoreMissingDeps = [
+    "libcublas.so.12"
+    "libcublasLt.so.12"
+    "libcudart.so.12"
+    "libcurand.so.10"
+    "libcufft.so.11"
+    "libcudnn.so.9"
+    "libnvinfer.so.10"
+    "libnvonnxparser.so.10"
+  ];
+
   nativeBuildInputs =
     old.nativeBuildInputs
     ++ [
