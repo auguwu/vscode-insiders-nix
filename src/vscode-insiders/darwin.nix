@@ -36,10 +36,13 @@ vscode.overrideAttrs (old: {
   # from: https://github.com/NixOS/nixpkgs/blob/08a2d5fff737305a13c39a47a49cf8590567220d/pkgs/applications/editors/vscode/generic.nix#L382-L454
   postPatch = (
     let
-      nodeModulesPath =
+      nodeModulesPaths =
         if lib.versionAtLeast version "1.94.0"
-        then "Contents/Resources/app/node_modules"
-        else "Contents/Resources/app/node_modules.asar.unpacked";
+        then [
+          "Contents/Resources/app/node_modules"
+          "Contents/Resources/app/node_modules.asar.unpacked"
+        ]
+        else ["Contents/Resources/app/node_modules.asar.unpacked"];
 
       # see https://www.npmjs.com/package/@vscode/ripgrep-universal?activeTab=code
       ripgrepSystem =
@@ -64,9 +67,21 @@ vscode.overrideAttrs (old: {
         then "@vscode/ripgrep-universal/bin/${ripgrepSystem}/rg"
         else "@vscode/ripgrep/bin/rg";
 
-      vscodeRipgrep = "${nodeModulesPath}/${ripgrepPath}";
+      vscodeRipgrepPaths = map (nodeModulesPath: "${nodeModulesPath}/${ripgrepPath}") nodeModulesPaths;
     in ''
-      chmod +x ${vscodeRipgrep}
+      foundVscodeRipgrep=
+      for vscodeRipgrep in ${lib.concatStringsSep " " (map lib.escapeShellArg vscodeRipgrepPaths)}; do
+        if [ -e "$vscodeRipgrep" ]; then
+          chmod +x "$vscodeRipgrep"
+          foundVscodeRipgrep=1
+          break
+        fi
+      done
+
+      if [ -z "$foundVscodeRipgrep" ]; then
+        echo "error: could not find the bundled ripgrep executable"
+        exit 1
+      fi
     ''
   );
 })
