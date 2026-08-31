@@ -5,23 +5,23 @@
   fetchurl,
 }: {
   x86_64-linux = fetchzip {
-    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/d5ceefbe0b296c4d8fbbf3664aff8cad73cd1b5d/code-insider-x64-1787937299.tar.gz";
-    hash = "sha256-tDaPFGTx4y18qzrgALWOgR2yu8+OXw/OX2OKzjK2fT4=";
+    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/db46a82c4f4a77c4853867dcdba5057229b5d099/code-insider-x64-1788153505.tar.gz";
+    hash = "sha256-jQh02K+gicWYH93UnJjCqFRp7pu4VSTlHEb45sbi5Z4=";
   };
   aarch64-linux = fetchzip {
-    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/d5ceefbe0b296c4d8fbbf3664aff8cad73cd1b5d/code-insider-arm64-1787937300.tar.gz";
-    hash = "sha256-XDw9bZ8waFbfaQNq8VsxIn4nFH1sCgNAKixIFCAaPsU=";
+    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/db46a82c4f4a77c4853867dcdba5057229b5d099/code-insider-arm64-1788153515.tar.gz";
+    hash = "sha256-rrRUotlldJQc63UqkN98Q05iwQB08VOlpVbVHzbdv0M=";
   };
   armv7l-linux = fetchzip {
-    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/d5ceefbe0b296c4d8fbbf3664aff8cad73cd1b5d/code-insider-armhf-1787937290.tar.gz";
-    hash = "sha256-zqMlRs1SI22Bt+vMJftLCKazVTAUZ0mC2qsIhndosoY=";
+    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/db46a82c4f4a77c4853867dcdba5057229b5d099/code-insider-armhf-1788153502.tar.gz";
+    hash = "sha256-xoJAXnxGHPgWXUlmNAGifZBWk9dlCbQM/+CLxwLNxRc=";
   };
   x86_64-darwin = fetchurl {
-    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/d5ceefbe0b296c4d8fbbf3664aff8cad73cd1b5d/VSCode-darwin-x64.dmg";
-    hash = "sha256-Eao+3aXJyhch68IMSCxbR5lNI1AKbM+RJN0EyMjgrHo=";
+    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/db46a82c4f4a77c4853867dcdba5057229b5d099/VSCode-darwin-x64.dmg";
+    hash = "sha256-SxE4sy4Jcd2+h9iMawnRMkK3czqiYha3+xu1dhoSsi8=";
   };
   aarch64-darwin = fetchurl {
-    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/d5ceefbe0b296c4d8fbbf3664aff8cad73cd1b5d/VSCode-darwin-arm64.dmg";
-    hash = "sha256-X1pqEH3b5857wrr/+h8fbHv+zKOQ+3/gQSEI2EdWT7s=";
+    url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/db46a82c4f4a77c4853867dcdba5057229b5d099/VSCode-darwin-arm64.dmg";
+    hash = "sha256-weyDGg4ViAD95cS/ztAldbP2FkOR2Mi7sQ33ta0RDCY=";
   };
 }
